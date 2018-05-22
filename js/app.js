@@ -1,4 +1,4 @@
-/* $(function() { */
+$(function() {
 const model = [
   {
     name: "Minik",
@@ -102,4 +102,4 @@ const model = [
   }
 
 octopus.init();
-/* }); */
+});
