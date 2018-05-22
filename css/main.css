@@ -1,0 +1,44 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main {
+  margin: 50px auto;
+  width: 600px;
+}
+
+.cat {
+  width: 100%;
+}
+
+#cat-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+img {
+  width: 100%;
+  margin-top: 10px;
+}
+
+#cat-name {
+ margin-left: 20px;
+ text-transform: uppercase;
+}
+
+li {
+  list-style: none;
+  border: 0.5px solid gray;
+  line-height: 30px;
+  padding: 2px;
+  text-transform: uppercase;
+}
+
+li:hover {
+  background: beige;
+}
