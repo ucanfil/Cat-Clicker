@@ -1,4 +1,4 @@
-$(function() {
+/* $(function() { */
 const model = [
   {
     name: "Minik",
@@ -34,11 +34,11 @@ const model = [
 
   const viewCatList = {
     init: function() {
-      viewCatList.render();
+      this.render();
     },
     render: function() {
       let listElement = "";
-      model.forEach(function(cat, i) {
+      octopus.getCats().forEach(function(cat, i) {
         listElement += "<li class='cat cat" + i + "'>" + cat.name + "</li>"
       });
       $("#cat-list-display").append(listElement);
@@ -47,13 +47,13 @@ const model = [
 
   const viewCat = {
     init: function() {
-      viewCat.render();
+      this.render();
     },
     render: function() {
       const catImageDisplay = $("img");
       const catCounterDisplay = $(".click-count");
       const catNameDisplay = $(".cat-name");
-      model.forEach(function (cat, i) {
+      octopus.getCats().forEach(function (cat, i) {
         if(cat.currentCat) {
           catImageDisplay.attr("src", cat.src);
           catNameDisplay.text(cat.name);
@@ -94,8 +94,12 @@ const model = [
         });
         viewCat.render();
       });
+    },
+
+    getCats: function() {
+      return model;
     }
   }
 
 octopus.init();
-});
+/* }); */
