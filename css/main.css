@@ -26,7 +26,7 @@ img {
   margin-top: 10px;
 }
 
-#cat-name {
+.cat-name {
  margin-left: 20px;
  text-transform: uppercase;
 }
