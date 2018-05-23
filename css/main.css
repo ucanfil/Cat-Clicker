@@ -61,7 +61,7 @@ img {
   max-width: 142px;
 }
 
-.admin-button {
+.admin-button, .cancel-button, .save-button {
   margin-right: 10px;
   padding: 10px;
   background-color: #99e5fa;
@@ -72,6 +72,15 @@ img {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.cancel-button, .save-button {
+  float: right;
+  margin: 20px 0 10px 2px;
+}
+
+button:hover {
+  background-color: #75dbc2;
 }
 
 .cat {
@@ -85,5 +94,5 @@ img {
 }
 
 .cat:hover {
-  background: beige;
+  background: #75dbc2;
 }
