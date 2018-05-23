@@ -9,8 +9,6 @@
 </head>
 <body>
   <main>
-    <ul id="cat-list-display">
-    </ul>
     <div id="cat-display">
       <div id="clicker">
         Clicks:
@@ -19,6 +17,29 @@
       </div>
       <img src="https://images.unsplash.com/photo-1519689521866-d4429d2dd0a7?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjF9&s=8971fc627e6717635d3c259b30452ae3"
         alt="cat-photo">
+    </div>
+    <div id="user-interaction">
+      <ul id="cat-list-display">
+      </ul>
+      <div class="admin-panel">
+        <button class="admin-button">Admin</button>
+        <form action="" method="GET">
+          <ul class="flex-outer">
+            <li>
+              <label for="cat-name-input">NAME:</label>
+              <input type="text" id="cat-name-input">
+            </li>
+            <li>
+              <label for="imgURL">ImgURL:</label>
+              <input type="text" id="imgURL">
+            </li>
+            <li>
+              <label for="clicks-input">#CLICKS:</label>
+              <input type="text" id="clicks-input">
+            </li>
+          </ul>
+        </form>
+      </div>
     </div>
   </main>
 
