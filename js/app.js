@@ -1,4 +1,4 @@
-/* $(function() { */
+$(function() {
 const model = {
   cats: [
     {
@@ -7,7 +7,7 @@ const model = {
       clickCount: 0
     },
     {
-      name: "Dummy",
+      name: "Dumm",
       src: "img/2.jpg",
       clickCount: 0
     },
@@ -36,6 +36,7 @@ const model = {
       this.render();
     },
     render: function() {
+      $("#cat-list-display").html("");
       let listElement = "";
       octopus.getCats().cats.forEach(function(cat, i) {
         listElement += "<li class='cat cat" + i + "'>" + cat.name + "</li>"
@@ -133,15 +134,12 @@ const model = {
     },
 
     saveCurrentCat: function() {
-      model.cats.forEach(function (cat, i) {
-        if (model.cats[i].currentCat === true) {
-          model.cats[i].name = $("#cat-name-input").val();
-          model.cats[i].src = $("#imgURL").val();
-          model.cats[i].clickCount = $("#clicks-input").val();
-        }
-      });
+      model.currentCat.name = $("#cat-name-input").val();
+      model.currentCat.src = $("#imgURL").val();
+      model.currentCat.clickCount = $("#clicks-input").val();
+      viewCat.render();
+      viewCatList.render();
     }
   }
-
 octopus.init();
-/* }); */
+});
