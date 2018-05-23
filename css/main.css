@@ -96,3 +96,7 @@ button:hover {
 .cat:hover {
   background: #75dbc2;
 }
+
+.no-show {
+  display: none;
+}
