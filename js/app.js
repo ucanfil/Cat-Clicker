@@ -1,36 +1,35 @@
-$(function() {
-const model = [
-  {
-    name: "Minik",
-    src: "img/1.jpg",
-    clickCount: 0,
-    currentCat: true
-  },
-  {
-    name: "Dummy",
-    src: "img/2.jpg",
-    clickCount: 0,
-    currentCat: false
-  },
-  {
-    name: "Sari",
-    src: "img/3.jpg",
-    clickCount: 0,
-    currentCat: false
-  },
-  {
-    name: "Pamuk",
-    src: "img/4.jpg",
-    clickCount: 0,
-    currentCat: false
-  },
-  {
-    name: "Arap",
-    src: "img/5.jpg",
-    clickCount: 0,
-    currentCat: false
-  },
-];
+/* $(function() { */
+const model = {
+  cats: [
+    {
+      name: "Minik",
+      src: "img/1.jpg",
+      clickCount: 0
+    },
+    {
+      name: "Dummy",
+      src: "img/2.jpg",
+      clickCount: 0
+    },
+    {
+      name: "Sari",
+      src: "img/3.jpg",
+      clickCount: 0
+    },
+    {
+      name: "Pamuk",
+      src: "img/4.jpg",
+      clickCount: 0
+    },
+    {
+      name: "Arap",
+      src: "img/5.jpg",
+      clickCount: 0
+    },
+  ],
+  currentCat: "",
+  adminPanel: false
+};
 
   const viewCatList = {
     init: function() {
@@ -38,7 +37,7 @@ const model = [
     },
     render: function() {
       let listElement = "";
-      octopus.getCats().forEach(function(cat, i) {
+      octopus.getCats().cats.forEach(function(cat, i) {
         listElement += "<li class='cat cat" + i + "'>" + cat.name + "</li>"
       });
       $("#cat-list-display").append(listElement);
@@ -47,24 +46,39 @@ const model = [
 
   const viewCat = {
     init: function() {
+      this.adminButton = $(".admin-button");
+      this.cancelButton = $(".cancel-button");
+      this.saveButton = $(".save-button");
+      this.catImageDisplay = $("img");
+      this.catCounterDisplay = $(".click-count");
+      this.catNameDisplay = $(".cat-name");
+
+      this.adminButton.click(function() {
+        octopus.openAdminArea();
+      });
+
+      this.cancelButton.click(function(e) {
+        octopus.closeAdminArea();
+        e.preventDefault();
+      });
+
+      this.saveButton.click(function(e) {
+        octopus.saveCurrentCat();
+        e.preventDefault();
+      });
+
       this.render();
     },
     render: function() {
-      const catImageDisplay = $("img");
-      const catCounterDisplay = $(".click-count");
-      const catNameDisplay = $(".cat-name");
-      octopus.getCats().forEach(function (cat, i) {
-        if(cat.currentCat) {
-          catImageDisplay.attr("src", cat.src);
-          catNameDisplay.text(cat.name);
-          catCounterDisplay.text(cat.clickCount);
-        }
-      });
+      $(this.catImageDisplay).attr("src", octopus.getCats().currentCat.src);
+      $(this.catCounterDisplay).text(octopus.getCats().currentCat.clickCount);
+      $(this.catNameDisplay).text(octopus.getCats().currentCat.name);
     }
   }
 
   const octopus = {
     init: function() {
+      model.currentCat = model.cats[0];
       viewCatList.init();
       viewCat.init();
       this.setClickCount();
@@ -74,11 +88,9 @@ const model = [
     setCurrentCat: function() {
       $("#cat-list-display").on("click", "li", function() {
         let clickedCat = $(this).text();
-        model.forEach(function(cat, i) {
+        model.cats.forEach(function(cat, i) {
           if (cat.name === clickedCat) {
-            model[i].currentCat = true;
-          } else {
-            model[i].currentCat = false;
+            model.currentCat = cat;
           }
         });
         viewCat.render();
@@ -87,19 +99,33 @@ const model = [
 
     setClickCount: function() {
       $("img").click(function() {
-        model.forEach(function(cat, i) {
-          if (model[i].currentCat === true) {
-            model[i].clickCount++;
-          }
-        });
+        model.currentCat.clickCount++;
         viewCat.render();
-      });
+        });
     },
 
     getCats: function() {
       return model;
+    },
+
+    openAdminArea: function() {
+      model.adminPanel = true;
+    },
+
+    closeAdminArea: function() {
+      model.adminPanel = false;
+    },
+
+    saveCurrentCat: function() {
+      model.cats.forEach(function (cat, i) {
+        if (model.cats[i].currentCat === true) {
+          model.cats[i].name = $("#cat-name-input").val();
+          model.cats[i].src = $("#imgURL").val();
+          model.cats[i].clickCount = $("#clicks-input").val();
+        }
+      });
     }
   }
 
 octopus.init();
-});
+/* }); */
