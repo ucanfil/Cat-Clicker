@@ -28,7 +28,7 @@ const model = {
     },
   ],
   currentCat: "",
-  adminPanel: false
+  adminPanel: null
 };
 
   const viewCatList = {
@@ -46,12 +46,23 @@ const model = {
 
   const viewCat = {
     init: function() {
-      this.adminButton = $(".admin-button");
-      this.cancelButton = $(".cancel-button");
-      this.saveButton = $(".save-button");
       this.catImageDisplay = $("img");
       this.catCounterDisplay = $(".click-count");
       this.catNameDisplay = $(".cat-name");
+      this.render();
+    },
+    render: function() {
+        $(this.catImageDisplay).attr("src", octopus.getCats().currentCat.src);
+        $(this.catCounterDisplay).text(octopus.getCats().currentCat.clickCount);
+        $(this.catNameDisplay).text(octopus.getCats().currentCat.name);
+    }
+  }
+
+  const viewAdmin = {
+    init: function() {
+      this.adminButton = $(".admin-button");
+      this.cancelButton = $(".cancel-button");
+      this.saveButton = $(".save-button");
 
       this.adminButton.click(function() {
         octopus.openAdminArea();
@@ -69,10 +80,12 @@ const model = {
 
       this.render();
     },
-    render: function() {
-      $(this.catImageDisplay).attr("src", octopus.getCats().currentCat.src);
-      $(this.catCounterDisplay).text(octopus.getCats().currentCat.clickCount);
-      $(this.catNameDisplay).text(octopus.getCats().currentCat.name);
+    render: function () {
+      if (octopus.getCats().adminPanel) {
+        $("form").removeClass("hidden");
+      } else if (!octopus.getCats().adminPanel) {
+        $("form").addClass("hidden");
+      }
     }
   }
 
@@ -81,6 +94,7 @@ const model = {
       model.currentCat = model.cats[0];
       viewCatList.init();
       viewCat.init();
+      viewAdmin.init();
       this.setClickCount();
       this.setCurrentCat();
     },
@@ -110,10 +124,12 @@ const model = {
 
     openAdminArea: function() {
       model.adminPanel = true;
+      viewAdmin.render();
     },
 
     closeAdminArea: function() {
       model.adminPanel = false;
+      viewAdmin.render();
     },
 
     saveCurrentCat: function() {
