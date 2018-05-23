@@ -97,6 +97,6 @@ button:hover {
   background: #75dbc2;
 }
 
-.no-show {
+.hidden {
   display: none;
 }
